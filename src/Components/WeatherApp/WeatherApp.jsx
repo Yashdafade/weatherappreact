@@ -1,0 +1,109 @@
+import React, { useState } from 'react'
+import './WeatherApp.css'
+
+import humidity from '../Assets/humidity.png';
+import wind from '../Assets/wind.png';
+import clouds from '../Assets/clouds.png';
+import clear from '../Assets/clear.png';
+import rain from '../Assets/rain.png';
+import drizzle from '../Assets/drizzle.png';
+import mist from '../Assets/mist.png';
+
+const WeatherApp = () => {
+    const [wicon, setWicon] = useState(clear)
+
+    const checkWeather = async () => {
+
+        let CityName = document.getElementById("input-city");
+        let apiKey = "5ae5eacdd6489ed78c15b47d83a6bf8f"
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${CityName.value}&APPID=${apiKey}`
+
+    
+        // let Enter = document.getElementById("search");
+        // console.log(CityName[0].value)
+
+        let city = document.querySelector('.CityName');
+        let temp = document.querySelector('.temperature');
+        let description = document.querySelector('.description');
+        let WindSpeed = document.querySelector('.WindSpeed');
+        let Humidity = document.querySelector('.Humidity');
+
+        const response = await fetch(url);
+        let data = await response.json();
+        console.log(data)
+
+        city.innerHTML = data.name;
+        description.innerHTML = data.weather[0].description;
+        temp.innerHTML = data.main.temp+"°C";
+        WindSpeed.innerHTML = data.wind.speed+" Km/hr";
+        Humidity.innerHTML = data.main.humidity+"%";
+
+        if (CityName.value === "") {
+            alert("Please Enter City Name");
+            return 0;
+        }
+        // else if (CityName.value = data.cod = "404") {
+        //     alert("Please Enter Correct City Name");
+        //     return 0;
+        // }
+
+        document.querySelector('.weather').style.display = "block";
+
+        if (data.weather[0].main === "Clouds") {
+            setWicon(clouds);
+        } else if (data.weather[0].main === "Clear") {
+            setWicon(clear);
+        } else if (data.weather[0].main === "Rain") {
+            setWicon(rain);
+        } else if (data.weather[0].main === "Drizzle") {
+            setWicon(drizzle);
+        } else if (data.weather[0].main === "Mist") {
+            setWicon(mist);
+        }
+        else {
+            setWicon(clear);
+        }
+    }
+
+
+
+
+    return (
+        <div className="container">
+            <div className="card">
+                <div className="input-field">
+                    <input className="input-city" id="input-city" type="text" placeholder="Type Your City"></input>
+                    <div className="search" id="search" onClick={() => { checkWeather() }}><i className='bx bx-search-alt-2'></i></div>
+                </div>
+                <div className="weather">
+                    <div className="display">
+                        <img className="image" src={wicon} alt="." />
+                        <h1 className="temperature"></h1>
+                        <h2 className="CityName"></h2>
+                        <h3 className="description"></h3>
+                    </div>
+                    <div className="details">
+                        <div className="col">
+                            <img src={wind} alt='' />
+                            <div>
+                                <p>Wind Speed</p>
+                                <p className="WindSpeed"></p>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <img src={humidity} alt='' />
+                            <div>
+                                <p>Humidity</p>
+                                <p className="Humidity"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
+
+}
+
+export default WeatherApp
