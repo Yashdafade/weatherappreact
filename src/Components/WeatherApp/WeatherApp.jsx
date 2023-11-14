@@ -16,7 +16,7 @@ const WeatherApp = () => {
 
         let CityName = document.getElementById("input-city");
         let apiKey = "5ae5eacdd6489ed78c15b47d83a6bf8f"
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${CityName.value}&APPID=${apiKey}`
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${CityName.value}&APPID=${apiKey}`;
 
     
         // let Enter = document.getElementById("search");
