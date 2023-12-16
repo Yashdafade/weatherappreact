@@ -75,7 +75,7 @@ body{
 }
 
 .container .card .input-field .search{
-    height:4vh;
+    height:35px;
     width: 10%;
     font-size: 1.3rem;
     display: flex;
@@ -174,5 +174,4 @@ body{
     .container .card .details .col p{
         font-size: 1rem;
     }
-    
 }
