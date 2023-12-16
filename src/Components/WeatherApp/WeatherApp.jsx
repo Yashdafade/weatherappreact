@@ -16,11 +16,7 @@ const WeatherApp = () => {
 
         let CityName = document.getElementById("input-city");
         let apiKey = "5ae5eacdd6489ed78c15b47d83a6bf8f"
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${CityName.value}&APPID=${apiKey}`;
-
-    
-        // let Enter = document.getElementById("search");
-        // console.log(CityName[0].value)
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${CityName.value}&APPID=${apiKey}&units=metric`;
 
         let city = document.querySelector('.CityName');
         let temp = document.querySelector('.temperature');
@@ -28,42 +24,52 @@ const WeatherApp = () => {
         let WindSpeed = document.querySelector('.WindSpeed');
         let Humidity = document.querySelector('.Humidity');
 
-        const response = await fetch(url);
-        let data = await response.json();
-        console.log(data)
 
-        city.innerHTML = data.name;
-        description.innerHTML = data.weather[0].description;
-        temp.innerHTML = data.main.temp+"°C";
-        WindSpeed.innerHTML = data.wind.speed+" Km/hr";
-        Humidity.innerHTML = data.main.humidity+"%";
-
-        if (CityName.value === "") {
-            alert("Please Enter City Name");
-            return 0;
+        try {
+            const response = await fetch(url);
+    
+            if (!response.ok) {
+                if (response.status === 404) {
+                    alert("City not found. Please enter a valid city name.");
+                } else {
+                    alert(`Error: ${response.status} - Something went wrong.`);
+                }
+                return;
+            }
+    
+            let data = await response.json();
+    
+            if (!data || !data.weather || !data.weather[0]) {
+                alert("No weather data available for the specified city.");
+                return;
+            }
+    
+            city.innerHTML = data.name;
+            description.innerHTML = data.weather[0].description;
+            temp.innerHTML = data.main.temp + "°C";
+            WindSpeed.innerHTML = data.wind.speed + " Km/hr";
+            Humidity.innerHTML = data.main.humidity + "%";
+    
+            document.querySelector('.weather').style.display = "block";
+    
+            // Set weather icon based on conditions
+            if (data.weather[0].main === "Clouds") {
+                setWicon(clouds);
+            } else if (data.weather[0].main === "Clear") {
+                setWicon(clear);
+            } else if (data.weather[0].main === "Rain") {
+                setWicon(rain);
+            } else if (data.weather[0].main === "Drizzle") {
+                setWicon(drizzle);
+            } else if (data.weather[0].main === "Mist") {
+                setWicon(mist);
+            } else {
+                setWicon(clear);
+            }
+        } catch (error) {
+            console.error("An error occurred while fetching weather data:", error);
         }
-        // else if (CityName.value = data.cod = "404") {
-        //     alert("Please Enter Correct City Name");
-        //     return 0;
-        // }
-
-        document.querySelector('.weather').style.display = "block";
-
-        if (data.weather[0].main === "Clouds") {
-            setWicon(clouds);
-        } else if (data.weather[0].main === "Clear") {
-            setWicon(clear);
-        } else if (data.weather[0].main === "Rain") {
-            setWicon(rain);
-        } else if (data.weather[0].main === "Drizzle") {
-            setWicon(drizzle);
-        } else if (data.weather[0].main === "Mist") {
-            setWicon(mist);
-        }
-        else {
-            setWicon(clear);
-        }
-    }
+    };
 
 
 
