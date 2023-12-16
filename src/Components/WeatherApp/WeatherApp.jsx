@@ -10,10 +10,10 @@ import drizzle from '../Assets/drizzle.png';
 import mist from '../Assets/mist.png';
 
 const WeatherApp = () => {
-    const [wicon, setWicon] = useState(clear)
+    const [wicon, setWicon] = useState(clear);
+    const [loading, setLoading] = useState(false);
 
     const checkWeather = async () => {
-
         let CityName = document.getElementById("input-city");
         let apiKey = "5ae5eacdd6489ed78c15b47d83a6bf8f"
         let url = `https://api.openweathermap.org/data/2.5/weather?q=${CityName.value}&APPID=${apiKey}&units=metric`;
@@ -24,10 +24,11 @@ const WeatherApp = () => {
         let WindSpeed = document.querySelector('.WindSpeed');
         let Humidity = document.querySelector('.Humidity');
 
-
         try {
+            setLoading(true); // Show loading animation
+
             const response = await fetch(url);
-    
+
             if (!response.ok) {
                 if (response.status === 404) {
                     alert("City not found. Please enter a valid city name.");
@@ -36,22 +37,22 @@ const WeatherApp = () => {
                 }
                 return;
             }
-    
+
             let data = await response.json();
-    
+
             if (!data || !data.weather || !data.weather[0]) {
                 alert("No weather data available for the specified city.");
                 return;
             }
-    
+
             city.innerHTML = data.name;
             description.innerHTML = data.weather[0].description;
             temp.innerHTML = data.main.temp + "°C";
             WindSpeed.innerHTML = data.wind.speed + " Km/hr";
             Humidity.innerHTML = data.main.humidity + "%";
-    
+
             document.querySelector('.weather').style.display = "block";
-    
+
             // Set weather icon based on conditions
             if (data.weather[0].main === "Clouds") {
                 setWicon(clouds);
@@ -68,14 +69,18 @@ const WeatherApp = () => {
             }
         } catch (error) {
             console.error("An error occurred while fetching weather data:", error);
+        } finally {
+            setLoading(false); // Hide loading animation
         }
     };
 
 
 
-
     return (
         <div className="container">
+          <div class="loading">
+        <div class="loading-bar"></div>
+    </div>
             <div className="card">
                 <div className="input-field">
                     <input className="input-city" id="input-city" type="text" placeholder="Type Your City"></input>
