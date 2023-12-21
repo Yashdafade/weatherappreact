@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/weatherappreact/static/css/main.66973c7a.css",
-    "main.js": "/weatherappreact/static/js/main.50cdecf8.js",
+    "main.css": "/weatherappreact/static/css/main.e41437b9.css",
+    "main.js": "/weatherappreact/static/js/main.4a971ac5.js",
     "static/js/787.aafc6230.chunk.js": "/weatherappreact/static/js/787.aafc6230.chunk.js",
     "static/media/clouds.png": "/weatherappreact/static/media/clouds.058d1121e95348721a5e.png",
     "static/media/mist.png": "/weatherappreact/static/media/mist.bec995ef50f9dab24180.png",
     "static/media/drizzle.png": "/weatherappreact/static/media/drizzle.586dab4fa773ec5fbaaf.png",
     "index.html": "/weatherappreact/index.html",
-    "main.66973c7a.css.map": "/weatherappreact/static/css/main.66973c7a.css.map",
-    "main.50cdecf8.js.map": "/weatherappreact/static/js/main.50cdecf8.js.map",
+    "main.e41437b9.css.map": "/weatherappreact/static/css/main.e41437b9.css.map",
+    "main.4a971ac5.js.map": "/weatherappreact/static/js/main.4a971ac5.js.map",
     "787.aafc6230.chunk.js.map": "/weatherappreact/static/js/787.aafc6230.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66973c7a.css",
-    "static/js/main.50cdecf8.js"
+    "static/css/main.e41437b9.css",
+    "static/js/main.4a971ac5.js"
   ]
 }
