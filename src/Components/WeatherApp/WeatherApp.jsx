@@ -77,10 +77,14 @@ const WeatherApp = () => {
 
 
     return (
+        <>
+           {loading ? (
+                <div className="loading">
+                    <div className="loading-bar"></div>
+                </div>
+            ) : ""}
         <div className="container">
-          <div class="loading">
-        <div class="loading-bar"></div>
-    </div>
+         
             <div className="card">
                 <div className="input-field">
                     <input className="input-city" id="input-city" type="text" placeholder="Type Your City"></input>
@@ -112,6 +116,7 @@ const WeatherApp = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 
 
